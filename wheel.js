@@ -1,17 +1,20 @@
 var Wheel = function(chars) {
 	
+	// for explanation of private, public and priviledged
+	// see http://javascript.crockford.com/private.html
+	var characters = chars; // private
 	var self = this;
-	this.characters = chars;
-	this.position = 0;
-	
-	Wheel.prototype.setPosition = function(position) {
-		self.position = position;
+
+	this.position = 0; // public
+		
+	this.encrypt = function(char) { // priviledged method
+		var index = characters.indexOf(char);
+		return characters.charAt(offsetForEncryptionWithWrap(index));
 	};
 	
-	Wheel.prototype.encrypt = function(char) {
-		var index = self.characters.indexOf(char);
-		return self.characters.charAt(index+self.position);
-	};
+	function offsetForEncryptionWithWrap(indexOfPlainTextChar) {
+		return (indexOfPlainTextChar+self.position) % characters.length
+	}
 
 }
 
