@@ -27,7 +27,10 @@ function doRequest(httpVerb,path,body,callback) {
 	
 	request.on('response', function (jsonResponse) {
 
-		if (jsonResponse.statusCode < 400) {
+		if (jsonResponse.statusCode === 303) {
+			doRequest('GET',jsonResponse.headers.location,'',callback);
+		}
+		else if (jsonResponse.statusCode < 400) {
 			jsonResponse.on('data', function(buffer) {
 				result = JSON.parse(buffer.toString('utf-8'));
 			});
@@ -38,7 +41,6 @@ function doRequest(httpVerb,path,body,callback) {
 			});			
 		}
 		else {
-			console.log("Got HTTP error response code: " + jsonResponse.statusCode + "\n");
 			callback({
 				httpStatus: jsonResponse.statusCode,
 				result: "error!"
@@ -49,7 +51,6 @@ function doRequest(httpVerb,path,body,callback) {
 }
 
 exports.getQuestion = function (questionPath, callback) {
-
 	doRequest('GET',questionPath,'',callback);
 }
 
