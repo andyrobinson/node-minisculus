@@ -1,6 +1,6 @@
 wheelFactory = require("./wheel.js");
 
-var wheel = wheelFactory.create("01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,?!'\" ");
+var wheel = wheelFactory.create("01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,?!'\" ",1);
 
 exports.encrypt = function (plaintext, callback) {
 

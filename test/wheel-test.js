@@ -4,14 +4,14 @@ var wheelFactory = require('../wheel.js');
 
 vows.describe('Wheel').addBatch({       
 	'create': {
-		topic: wheelFactory.create("abcdefghijklmnopqrstuvwxyz"),
+		topic: wheelFactory.create("abcdefghijklmnopqrstuvwxyz", 1),
 		'has encrypt function': function (topic) {
 			assert.isFunction(topic.encrypt);
 		}
 	},	
 	'encrypt with zero position': {
 		topic: function () { 
-					var wheel = wheelFactory.create("abcdefghijklmnopqrstuvwxyz");
+					var wheel = wheelFactory.create("abcdefghijklmnopqrstuvwxyz",1);
 					wheel.position = 0;
 					return wheel;
 				},
@@ -20,9 +20,9 @@ vows.describe('Wheel').addBatch({
 			assert.equal(topic.encrypt('c'),'c');
 		}
 	},	
-	'encrypt with position should offset': {
+	'encrypt with position should offset 1': {
 		topic: function () { 
-					var wheel = wheelFactory.create("abcdefghijklmnopqrstuvwxyz");
+					var wheel = wheelFactory.create("abcdefghijklmnopqrstuvwxyz",1);
 					wheel.position = 5;
 					return wheel;
 				},
@@ -32,6 +32,20 @@ vows.describe('Wheel').addBatch({
 		},
 		'should wrap' : function(topic) {
 			assert.equal(topic.encrypt('y'),'d');
+		}
+	},
+	'encrypt with position should use negative offset': {
+		topic: function () {
+					var wheel = wheelFactory.create("abcdefghijklmnopqrstuvwxyz",-2);
+					wheel.position = 3;
+					return wheel;
+				},
+		'should left shift' : function(topic) {
+			assert.equal(topic.encrypt('g'),'a');
+			assert.equal(topic.encrypt('z'),'t');
+		},
+		'should wrap' : function(topic) {
+			assert.equal(topic.encrypt('b'),'v');
 		}
 	}	
 }).export(module);

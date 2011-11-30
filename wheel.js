@@ -1,8 +1,9 @@
-var Wheel = function(chars) {
+var Wheel = function(chars, increment) {
 	
 	// for explanation of private, public and priviledged
 	// see http://javascript.crockford.com/private.html
 	var characters = chars; // private
+	var inc = increment;
 	var self = this;
 
 	this.position = 0; // public
@@ -13,11 +14,13 @@ var Wheel = function(chars) {
 	};
 	
 	function offsetForEncryptionWithWrap(indexOfPlainTextChar) {
-		return (indexOfPlainTextChar+self.position) % characters.length
+		var newPosition = indexOfPlainTextChar+self.position * inc;
+		var wrappedPosition = (newPosition + characters.length) % characters.length;
+		return wrappedPosition;
 	}
 
 }
 
-exports.create = function(chars) {
-	return new Wheel(chars);
+exports.create = function(chars, increment) {
+	return new Wheel(chars, increment);
 }
