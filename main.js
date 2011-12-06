@@ -1,5 +1,6 @@
 examiner = require('./examiner.js');
-enigma = require('./enigma.js');
+enigmaFactory = require('./enigma.js');
+enigma = enigmaFactory.createEnigma(1);
 
 console.log('\n\nAttempting to connect to MINISCULUS server\n--------------------------------------------\n');
 

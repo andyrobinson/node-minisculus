@@ -1,26 +1,28 @@
-var Wheel = function(chars, increment) {
+
+
+var Wheel = function(initialPosition, increment) {
 	
 	// for explanation of private, public and priviledged
 	// see http://javascript.crockford.com/private.html
-	var characters = chars; // private
+	var wheelLetters = "01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,?!'\" ";
 	var inc = increment;
 	var self = this;
 
-	this.position = 0; // public
+	this.position = initialPosition; // public
 		
 	this.encrypt = function(char) { // priviledged method
-		var index = characters.indexOf(char);
-		return characters.charAt(offsetForEncryptionWithWrap(index));
+		var index = wheelLetters.indexOf(char);
+		return wheelLetters.charAt(offsetForEncryptionWithWrap(index));
 	};
 	
 	function offsetForEncryptionWithWrap(indexOfPlainTextChar) {
 		var newPosition = indexOfPlainTextChar+self.position * inc;
-		var wrappedPosition = (newPosition + characters.length) % characters.length;
+		var wrappedPosition = (newPosition + wheelLetters.length) % wheelLetters.length;
 		return wrappedPosition;
 	}
 
 }
 
-exports.create = function(chars, increment) {
-	return new Wheel(chars, increment);
+exports.create = function(initialPosition, increment) {
+	return new Wheel(initialPosition, increment);
 }

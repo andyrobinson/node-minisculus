@@ -1,24 +1,27 @@
 wheelFactory = require("./wheel.js");
 
 var Enigma = function(wheels) {
-	var wheelLetters = "01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,?!'\" ";
 
-	var wheel = wheelFactory.create(wheelLetters,1);
+    var machineWheels = wheels;
 
 	this.encrypt = function (plaintext, callback) {
 
-		wheel.position = 6;
 		var cipherText = "";
 
 		for (i=0; i< plaintext.length; i++) {
-			cipherText += wheel.encrypt(plaintext.charAt(i));
+			cipherText += encryptChar(plaintext.charAt(i));
 		}
 
 		callback(cipherText);
-	}	
+	}
+	
+	encryptChar = function(plainChar) {
+		return machineWheels[0].encrypt(plainChar);
+	}
 }
 
-exports.createEnigma = function(wheels) {
+exports.createEnigma = function(numberOfWheels) {
+	var wheels = [wheelFactory.create(6,1)];	
 	return new Enigma(wheels);
 }
 		
