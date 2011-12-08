@@ -1,7 +1,5 @@
 TODO
 ====
-- Refactor enigma to allow multiple wheels
-- Add second wheel to enigma to solve Q2
 - Refactor main to pull out function to answer a single question (which can perhaps be used recursively); we should then be able to test this.
 - Refactor examiner to possibly pull out minisculus server; we need to be able to unit test examiner because it is getting harder just to do this with an integration test, also we want to be able to run tests independent of the eden server; probably means introducing a mock Http client (do we have already?)
 - Look again at Node modules and the factory method; is this the way to proceed?	
