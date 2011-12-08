@@ -1,6 +1,6 @@
 
 
-var Wheel = function(initialPosition, increment) {
+var Wheel = function(increment) {
 	
 	// for explanation of private, public and priviledged
 	// see http://javascript.crockford.com/private.html
@@ -8,7 +8,7 @@ var Wheel = function(initialPosition, increment) {
 	var inc = increment;
 	var self = this;
 
-	this.position = initialPosition; // public
+	this.position = 0; // public
 		
 	this.encrypt = function(char) { // priviledged method
 		var index = wheelLetters.indexOf(char);

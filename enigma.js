@@ -1,4 +1,5 @@
-wheelFactory = require("./wheel.js");
+var wheelFactory = require("./wheel.js");
+var allWheels = [wheelFactory.create(1), wheelFactory.create(-2)];
 
 var Enigma = function(wheels) {
 
@@ -16,12 +17,24 @@ var Enigma = function(wheels) {
 	}
 	
 	encryptChar = function(plainChar) {
-		return machineWheels[0].encrypt(plainChar);
+		var i,cipherChar = plainChar;
+		for (i=0;i<wheels.length;i++) {
+			cipherChar = machineWheels[i].encrypt(cipherChar); 
+		}
+		return cipherChar;
 	}
 }
 
-exports.createEnigma = function(numberOfWheels) {
-	var wheels = [wheelFactory.create(6,1)];	
+var setPositions = function(wheels, initialPositions) {
+  var i;
+  for (i=0;i<initialPositions.length;i++) {
+    wheels[i].position = initialPositions[i];
+  }
+}
+
+exports.createEnigma = function() {
+	var wheels = allWheels.slice(0,arguments.length);
+	setPositions(wheels, arguments);
 	return new Enigma(wheels);
 }
 		

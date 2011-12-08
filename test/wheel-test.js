@@ -11,7 +11,8 @@ vows.describe('Wheel').addBatch({
 	},	
 	'encrypt with zero position': {
 		topic: function () { 
-					var wheel = wheelFactory.create(0,1);
+					var wheel = wheelFactory.create(1);
+					wheel.position =0;
 					return wheel;
 				},
 		'is identity' : function(topic) {
@@ -21,7 +22,8 @@ vows.describe('Wheel').addBatch({
 	},	
 	'encrypt with position should offset 1': {
 		topic: function () { 
-					var wheel = wheelFactory.create(5,1);
+					var wheel = wheelFactory.create(1);
+					wheel.position = 5;
 					return wheel;
 				},
 		'should right shift' : function(topic) {
@@ -34,7 +36,8 @@ vows.describe('Wheel').addBatch({
 	},
 	'encrypt with position should use negative offset': {
 		topic: function () {
-					var wheel = wheelFactory.create(3,-2);
+					var wheel = wheelFactory.create(-2);
+					wheel.position = 3;
 					return wheel;
 				},
 		'should left shift' : function(topic) {

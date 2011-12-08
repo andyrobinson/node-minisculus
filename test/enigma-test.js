@@ -1,15 +1,26 @@
 var vows = require('vows');
 var assert = require('assert');
 var enigmaFactory = require('../enigma.js');
-var enigma = enigmaFactory.createEnigma(1);
 
 vows.describe('Enigma').addBatch({       
-	'encrypt': { 
+	'encrypt with one wheel': { 
 		topic: function () {
-			enigma.encrypt('ab ', this.callback);
+			var enigma1 = enigmaFactory.createEnigma(4);
+			enigma1.encrypt('ab ', this.callback);
 		},
-		'shifts right by 6 characters': function (result,err) {
-			assert.equal(result,'gh5');
+		'shifts right by 4 characters': function (result,err) {
+			assert.equal(result,'ef3');
+		}
+	},
+	'encrypt with two wheels': { 
+		topic: function () {
+			var enigma2 = enigmaFactory.createEnigma(2,5);
+			enigma2.encrypt('abc1', this.callback);
+		},
+		'shifts right by 2 characters, then left by 10 chars': function (result,err) {
+			assert.equal(result,'STU.');
+			
 		}
 	}	
+	
 }).export(module);
