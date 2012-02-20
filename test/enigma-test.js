@@ -21,6 +21,16 @@ vows.describe('Enigma').addBatch({
 			assert.equal(result,'STU.');
 			
 		}
-	}	
+	},
+	'factory creates independent enigmas': {
+		topic: function () {
+			var enigma1 = enigmaFactory.createEnigma(4);
+			var enigma2 = enigmaFactory.createEnigma(3,7);
+			enigma1.encrypt('ab ', this.callback);			
+		},
+		'second enigma does not affect encryption of first' : function (result,err) {
+			assert.equal(result, 'ef3');
+		}
+	}
 	
 }).export(module);

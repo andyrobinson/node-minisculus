@@ -9,20 +9,20 @@ var Wheel = function(increment) {
 	var self = this;
 
 	this.position = 0; // public
-		
+	
 	this.encrypt = function(char) { // priviledged method
 		var index = wheelLetters.indexOf(char);
-		return wheelLetters.charAt(offsetForEncryptionWithWrap(index));
+		return wheelLetters.charAt(offsetForEncryptionWithWrap(index,this.position, inc));
 	};
 	
-	function offsetForEncryptionWithWrap(indexOfPlainTextChar) {
-		var newPosition = indexOfPlainTextChar+self.position * inc;
+	function offsetForEncryptionWithWrap(indexOfPlainTextChar, pos, inc) {
+		var newPosition = indexOfPlainTextChar + pos * inc;
 		var wrappedPosition = (newPosition + wheelLetters.length) % wheelLetters.length;
 		return wrappedPosition;
 	}
 
 }
 
-exports.create = function(initialPosition, increment) {
-	return new Wheel(initialPosition, increment);
+exports.create = function(increment) {
+	return new Wheel(increment);
 }

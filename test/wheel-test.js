@@ -47,5 +47,17 @@ vows.describe('Wheel').addBatch({
 		'should wrap' : function(topic) {
 			assert.equal(topic.encrypt('1'),'?');
 		}
-	}	
+	},
+	'each created wheel is different': {
+		topic : function() {
+			var wheel1 = wheelFactory.create(1);
+			wheel1.position = 5;
+			var wheel2 = wheelFactory.create(-2);
+			wheel2.position = 17;
+			return wheel1;
+		},
+		'should right shift by 5': function(topic) {
+			assert.equal(topic.encrypt('b'),'g');			
+		}
+	}
 }).export(module);
