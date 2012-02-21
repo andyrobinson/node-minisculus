@@ -17,7 +17,7 @@ var Enigma = function(wheels) {
 	encryptChar = function(plainChar, wheels) {
 		var i,cipherChar = plainChar;
 		for (i=0;i < wheels.length;i++) {
-			cipherChar = wheels[i].encrypt(cipherChar); 
+			cipherChar = wheels[i].encrypt(cipherChar,0); 
 		}
 		return cipherChar;
 	}

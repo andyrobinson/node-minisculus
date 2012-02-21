@@ -1,33 +1,45 @@
 examiner = require('./examiner.js');
 enigmaFactory = require('./enigma.js');
-enigma = enigmaFactory.createEnigma(6);
+enigmas = [enigmaFactory.createEnigma(6), enigmaFactory.createEnigma(9,3)];
 
 var self = exports;
 
-exports.putUrl = function(url) {
+var extractName = function(url) {
 	return url.substring(url.lastIndexOf("/"), url.indexOf("."));
 }
 
-exports.getAnswer = function(question, url) {
-	var enigmas = [enigma];
-	self.getAnswers(question, url, examiner, enigmas);
+var missionComplete = function(question) {
+	return question.code !== undefined;
 }
 
-exports.getAnswers = function(question, url, examiner, enigmas) {
+var noMoreEnigmas = function(enigmas) {
+	return enigmas[0] === undefined;
+}
 
-    enigma = enigmas[0];
-	enigma.encrypt(question, function(cipher) {
+exports.getAnswers = function(question, callback) {
+	self.answerQuestions(question, examiner, enigmas, callback);
+}
 
-		console.log("question: "+ question);	
-		console.log("url: "+ url);
-		console.log("cipher: "+ cipher + "\n");
+exports.answerQuestions = function(question, examiner, enigmas, callback) {
 
-		examiner.putAnswer(url,'{"answer":"'+ cipher +'"}', function(result) {
-			console.log("question: "+ result["question"]);
-			console.log("url: "+ result["reference-url"]);			
-			console.log('\n---------------------\nEnd of test run\n');
+	console.log("question: "+ question["question"]);	
+	console.log("url: "+ question["reference-url"]);
+
+	if (noMoreEnigmas(enigmas) || missionComplete(question)) {
+		callback(examiner);
+		return;
+	}
+
+    enigma = enigmas.shift();
+
+	enigma.encrypt(question["question"], function(cipher) {
+
+		examiner.putAnswer(extractName(question["reference-url"]),'{"answer":"'+ cipher +'"}', function(result) {
+            self.answerQuestions(result,examiner, enigmas, callback);
+
 		});
 	});	
+	
 }
 
 

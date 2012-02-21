@@ -1,7 +1,7 @@
 http = require('http');
 
 var minisculusServer = {
-		host: 'minisculus.edendevelopment.co.uk', 
+		host: 'minisculuschallenge.com', 
 		port: 80, 
 
 		getHeader: function(path,bodyLength) {

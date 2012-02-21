@@ -16,8 +16,8 @@ vows.describe('Wheel').addBatch({
 					return wheel;
 				},
 		'is identity' : function(topic) {
-			assert.equal(topic.encrypt('b'),'b');
-			assert.equal(topic.encrypt('c'),'c');
+			assert.equal(topic.encrypt('b',0),'b');
+			assert.equal(topic.encrypt('c',0),'c');
 		}
 	},	
 	'encrypt with position should offset 1': {
@@ -27,11 +27,11 @@ vows.describe('Wheel').addBatch({
 					return wheel;
 				},
 		'should right shift' : function(topic) {
-			assert.equal(topic.encrypt('b'),'g');
-			assert.equal(topic.encrypt('c'),'h');
+			assert.equal(topic.encrypt('b',0),'g');
+			assert.equal(topic.encrypt('c',0),'h');
 		},
 		'should wrap' : function(topic) {
-			assert.equal(topic.encrypt(' '),'4');
+			assert.equal(topic.encrypt(' ',0),'4');
 		}
 	},
 	'encrypt with position should use negative offset': {
@@ -41,11 +41,11 @@ vows.describe('Wheel').addBatch({
 					return wheel;
 				},
 		'should left shift' : function(topic) {
-			assert.equal(topic.encrypt('g'),'a');
-			assert.equal(topic.encrypt('z'),'t');
+			assert.equal(topic.encrypt('g',0),'a');
+			assert.equal(topic.encrypt('z',0),'t');
 		},
 		'should wrap' : function(topic) {
-			assert.equal(topic.encrypt('1'),'?');
+			assert.equal(topic.encrypt('1',0),'?');
 		}
 	},
 	'each created wheel is different': {
@@ -57,7 +57,7 @@ vows.describe('Wheel').addBatch({
 			return wheel1;
 		},
 		'should right shift by 5': function(topic) {
-			assert.equal(topic.encrypt('b'),'g');			
+			assert.equal(topic.encrypt('b',0),'g');			
 		}
 	}
 }).export(module);
