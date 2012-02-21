@@ -1,6 +1,6 @@
 examiner = require('./examiner.js');
 enigmaFactory = require('./enigma.js');
-enigmas = [enigmaFactory.createEnigma(6), enigmaFactory.createEnigma(9,3)];
+enigmas = [enigmaFactory.createEnigma(6), enigmaFactory.createEnigma(9,3), enigmaFactory.createEnigma(4,7,0)];
 
 var self = exports;
 
@@ -24,6 +24,7 @@ exports.answerQuestions = function(question, examiner, enigmas, callback) {
 
 	console.log("question: "+ question["question"]);	
 	console.log("url: "+ question["reference-url"]);
+	console.log("result: " + question["result"]);
 
 	if (noMoreEnigmas(enigmas) || missionComplete(question)) {
 		callback(examiner);
@@ -33,6 +34,8 @@ exports.answerQuestions = function(question, examiner, enigmas, callback) {
     enigma = enigmas.shift();
 
 	enigma.encrypt(question["question"], function(cipher) {
+		
+		console.log("cipher:" + cipher);
 
 		examiner.putAnswer(extractName(question["reference-url"]),'{"answer":"'+ cipher +'"}', function(result) {
             self.answerQuestions(result,examiner, enigmas, callback);

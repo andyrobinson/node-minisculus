@@ -1,4 +1,5 @@
 TODO
 ====
-- Refactor examiner to possibly pull out minisculus service; we need to be able to unit test examiner because it is getting harder just to do this with an integration test, also we want to be able to run tests independent of the eden server; probably means introducing a mock Http client (do we have already?)
-- Can we pass JSON rather than string containing JSON?
+- Can we pass JSON rather than string containing JSON?  Is there any value in doing this?
+- Refactor wheel to use some kind of collection of multipliers?
+- Refactor wheel to remove to/from array into separate class, as there is too much to/from characters
